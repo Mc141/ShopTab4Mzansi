@@ -3,6 +3,15 @@
   "name": "#ShopTab4Mzansi",
   "version": "1.0.0",
   "description": "Adds a Shopping button to Google Search pages for quick access to Shopping-style results. Designed for South African users.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "shoptab4mzansi@mcwolmarans.dev",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
   "content_scripts": [
     {
       "matches": [
