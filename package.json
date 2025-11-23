@@ -1,0 +1,18 @@
+{
+  "name": "shoptab4mzansi",
+  "version": "1.0.0",
+  "description": "Adds a convenient Shopping button to Google Search pages that opens Shopping-style results.",
+  "scripts": {
+    "package:chrome": "node scripts/package.js chrome",
+    "package:firefox": "node scripts/package.js firefox",
+    "package:all": "npm run package:chrome && npm run package:firefox"
+  },
+  "keywords": [
+    "chrome-extension",
+    "firefox-addon",
+    "google-shopping",
+    "south-africa"
+  ],
+  "author": "#ShopTab4Mzansi",
+  "license": "GPL-3.0"
+}

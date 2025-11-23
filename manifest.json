@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "#ShopTab4Mzansi",
+  "version": "1.0.0",
+  "description": "Adds a Shopping button to Google Search pages for quick access to Shopping-style results. Designed for South African users.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/*",
+        "https://www.google.co.za/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "#ShopTab4Mzansi - Shopping Shortcut",
+    "default_popup": "popup.html"
+  }
+}
