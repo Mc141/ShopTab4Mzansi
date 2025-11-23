@@ -32,8 +32,16 @@ const filesToInclude = [
   'styles.css',
   'popup.html',
   'popup.js',
-  'icons',
   'PRIVACY.md'
+];
+
+const iconFilesToInclude = [
+  'icon16.png',
+  'icon32.png',
+  'icon48.png',
+  'icon64.png',
+  'icon96.png',
+  'icon128.png'
 ];
 
 function createPackage(browserType) {
@@ -70,6 +78,20 @@ function createPackage(browserType) {
     }
   });
 
+  const iconsDir = path.join(tempDir, 'icons');
+  fs.mkdirSync(iconsDir, { recursive: true });
+  console.log('Copying icon files...');
+  iconFilesToInclude.forEach(iconFile => {
+    const src = path.join(projectRoot, 'icons', iconFile);
+    const dest = path.join(iconsDir, iconFile);
+    if (fs.existsSync(src)) {
+      fs.copyFileSync(src, dest);
+      console.log(`  [OK] icons/${iconFile}`);
+    } else {
+      console.log(`  [WARN] icons/${iconFile} not found (skipping)`);
+    }
+  });
+
   if (browserType === 'firefox') {
     const manifestPath = path.join(tempDir, 'manifest.json');
     if (fs.existsSync(manifestPath)) {
@@ -81,12 +103,14 @@ function createPackage(browserType) {
 
   console.log('\nCreating ZIP archive...');
   try {
-    const isWindows = process.platform === 'win32';
-    const zipCommand = isWindows
-      ? `powershell Compress-Archive -Path "${tempDir}\\*" -DestinationPath "${packagePath}" -Force`
-      : `cd "${tempDir}" && zip -r "${packagePath}" .`;
-
-    execSync(zipCommand, { stdio: 'inherit' });
+    if (fs.existsSync(packagePath)) {
+      fs.unlinkSync(packagePath);
+    }
+    
+    const zipModule = require('adm-zip');
+    const zip = new zipModule();
+    zip.addLocalFolder(tempDir);
+    zip.writeZip(packagePath);
     console.log(`\n[SUCCESS] Package created: ${packagePath}\n`);
   } catch (error) {
     console.error('\n[ERROR] Error creating ZIP file:', error.message);

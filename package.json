@@ -14,5 +14,8 @@
     "south-africa"
   ],
   "author": "#ShopTab4Mzansi",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "adm-zip": "^0.5.16"
+  }
 }
